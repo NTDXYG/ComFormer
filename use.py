@@ -1,8 +1,8 @@
 from utils import *
 from transformers import BartForConditionalGeneration, BartTokenizer
 
-model = BartForConditionalGeneration.from_pretrained("../model/comformer")
-tokenizer = BartTokenizer.from_pretrained("../model/comformer")
+model = BartForConditionalGeneration.from_pretrained("NTUYG/ComFormer")
+tokenizer = BartTokenizer.from_pretrained("NTUYG/ComFormer")
 
 def demo():
     code = '''    
@@ -38,7 +38,7 @@ public static void copyFile( File in, File out )
     }
     '''
     code_seq, sbt = transformer(code)
-    input_text = code_seq + sbt
+    input_text = code_seq + " <code> " +sbt
     input_ids = tokenizer.encode(input_text, return_tensors="pt", max_length=256, truncation=True)
     summary_text_ids = model.generate(
         input_ids=input_ids,

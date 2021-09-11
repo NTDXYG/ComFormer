@@ -1,3 +1,51 @@
+This repo uses transformers, simpletransformers and pytorch.
+
+Make sure your dataset is in CSV format and has two columns, code in the first column and comments in the second.
+
+# How To Train-From-Scratch
+
+First you need train the tokenize:
+
+```
+python train_tokenizer.py
+```
+
+where you also need modify the dataset path, vocab_size and others, then the 'vocab.json' and 'merges.txt' will be saved in 'tokenize' folder.
+
+Next you can train, but also need modify the parameters in the 'train.py', such as your own train.csv, valid.csv and test.csv. If you train from scratch, make sure pretrained_model = None.
+
+```
+model = BartModel(pretrained_model=None,args=model_args, model_config='config.json', vocab_file="./tokenize")
+```
+
+config.json, like BART, is set to a base or large model, where url is 
+
+https://huggingface.co/facebook/bart-base/blob/main/config.json and 
+
+https://huggingface.co/facebook/bart-large/blob/main/config.json
+
+For other parameters, see [simpletransformers](https://simpletransformers.ai/docs/usage/)
+
+Finally run 
+
+```
+python train.py
+```
+
+# How To Fine-Tune
+
+Make sure:
+
+```
+model = BartModel(pretrained_model='NTUYG/ComFormer',args=model_args)
+```
+
+Then run 
+
+```
+python train.py
+```
+
 # How To Use
 
 ```PYTHON
@@ -39,8 +87,8 @@ public static void copyFile( File in, File out )
     }
     '''
 code_seq, sbt = utils.transformer(code) #can find in https://github.com/NTDXYG/ComFormer
-input_text = code_seq + sbt
-input_ids = tokenizer.encode(input_text, return_tensors="pt", max_length=256, 		truncation=True)
+input_text = ' '.join(code_seq.split()[:256]) + ' '.join(sbt.split()[:256])
+input_ids = tokenizer.encode(input_text, return_tensors="pt", max_length=512, truncation=True)
 summary_text_ids = model.generate(
     input_ids=input_ids,
     bos_token_id=model.config.bos_token_id,
