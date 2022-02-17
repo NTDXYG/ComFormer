@@ -1,11 +1,9 @@
 import collections
 import json
-import pickle
 import re
 
 import javalang
 import torch
-import numpy as np
 from tqdm import tqdm
 
 

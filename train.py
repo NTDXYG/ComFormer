@@ -2,6 +2,7 @@ import logging
 
 import pandas as pd
 from nlgeval import _strip
+from nlgeval.pycocoevalcap.rouge.rouge import Rouge
 
 def getListRouge(hyp_list, refs):
     ref_list = []
@@ -37,14 +38,14 @@ eval_df = pd.read_csv('data/valid.csv')
 test_df = pd.read_csv('data/test.csv')
 
 train_df.columns = ["input_text", "target_text"]
-train_df.columns = ["input_text", "target_text"]
-train_df.columns = ["input_text", "target_text"]
+eval_df.columns = ["input_text", "target_text"]
+test_df.columns = ["input_text", "target_text"]
 
 model_args = {
     "overwrite_output_dir": True,
-    "train_batch_size": 8,
+    "train_batch_size": 1,
     "num_train_epochs": 30,
-    "max_seq_length":512,
+    "max_seq_length":32,
     "save_eval_checkpoints": False,
     "save_model_every_epoch": True,
     # "silent": True,
@@ -66,10 +67,7 @@ model_args = {
     "early_stopping_metric_minimize": False,
 }
 
-def Rouge(labels, preds):
-    score = getListRouge(preds, labels)
-    return score
 
 model = BartModel(pretrained_model=None,args=model_args, model_config='config.json', vocab_file="./tokenize")
 #
-model.train_model(train_df, eval_data=eval_df, Rouge=Rouge)
+model.train_model(train_df, eval_data=eval_df, Rouge=getListRouge)

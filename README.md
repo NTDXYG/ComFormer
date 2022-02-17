@@ -1,6 +1,8 @@
-This repo uses transformers, simpletransformers and pytorch.
+This repo uses [javalang](https://github.com/c2nes/javalang), [transformers](https://github.com/huggingface/transformers), [simpletransformers](https://github.com/ThilinaRajapakse/simpletransformers), [pytorch](https://pytorch.org/), and [nlgeval](https://github.com/Maluuba/nlg-eval). If the nlg-eval library installation encounters a dependency conflict, you can modify its project and then run setup.py.
 
 Make sure your dataset is in CSV format and has two columns, code in the first column and comments in the second.
+
+For model inputs, **please ensure that the format is [ codeseq  ⊕ \<code> ⊕ sbt ]**. For Java, we implement it in utils.transformer.
 
 # How To Train-From-Scratch
 
@@ -34,7 +36,7 @@ python train.py
 
 # How To Fine-Tune
 
-Make sure:
+If you want to fine-tune the model we pretrained in Java, please make sure:
 
 ```
 model = BartModel(pretrained_model='NTUYG/ComFormer',args=model_args)
