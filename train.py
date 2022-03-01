@@ -33,9 +33,9 @@ logging.basicConfig(level=logging.INFO)
 transformers_logger = logging.getLogger("transformers")
 transformers_logger.setLevel(logging.WARNING)
 
-train_df = pd.read_csv('data/train.csv')
-eval_df = pd.read_csv('data/valid.csv')
-test_df = pd.read_csv('data/test.csv')
+train_df = pd.read_csv('data/train.csv').dropna()
+eval_df = pd.read_csv('data/valid.csv').dropna()
+test_df = pd.read_csv('data/test.csv').dropna()
 
 train_df.columns = ["input_text", "target_text"]
 eval_df.columns = ["input_text", "target_text"]

@@ -694,14 +694,12 @@ class BartModel:
         self.results.update(result)
 
         if self.args.evaluate_generated_text:
-            to_predict_a = eval_data["input_text_a"].tolist()
-            to_predict_b = eval_data["input_text_b"].tolist()
-            to_predict = []
-            for i in range(len(to_predict_a)):
-                to_predict.append([to_predict_a[i], to_predict_b[i]])
+            to_predict = eval_data["input_text"].tolist()
             preds = self.predict(to_predict)
 
-            result = self.compute_metrics(eval_data["target_text"].tolist(), preds, **kwargs)
+            result = self.compute_metrics(
+                eval_data["target_text"].tolist(), preds, **kwargs
+            )
             self.results.update(result)
 
         if verbose:
