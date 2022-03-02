@@ -793,7 +793,7 @@ class BartModel:
                 padding="max_length",
                 return_tensors="pt",
                 truncation=True,
-            )["input_ids"]
+            )["input_ids"].to(self.device)
 
             if self.args.model_type in ["bart", "marian"]:
                 outputs = self.model.generate(
