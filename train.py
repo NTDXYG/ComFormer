@@ -63,11 +63,11 @@ model_args = {
     "length_penalty":1.2,
     "best_model_dir":'result/best_model',
     "output_dir":'result',
-    "early_stopping_metric": 'Rouge',
+    "early_stopping_metric": 'getListRouge',
     "early_stopping_metric_minimize": False,
 }
 
 
 model = BartModel(pretrained_model=None,args=model_args, model_config='config.json', vocab_file="./tokenize")
 #
-model.train_model(train_df, eval_data=eval_df, Rouge=getListRouge)
+model.train_model(train_df, eval_data=eval_df, getListRouge=getListRouge)
