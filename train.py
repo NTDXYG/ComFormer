@@ -58,7 +58,7 @@ model_args = {
     # "learning_rate":1e-3,
     "top_k":5,
     "top_p":0.95,
-    "max_length": 32,
+    "max_length": 256,
     "use_early_stopping":True,
     "length_penalty":1.2,
     "best_model_dir":'result/best_model',
