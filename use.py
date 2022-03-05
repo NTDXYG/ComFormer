@@ -39,7 +39,7 @@ public static void copyFile( File in, File out )
     '''
     code_seq, sbt = transformer(code)
     input_text = code_seq + " <code> " +sbt
-    input_ids = tokenizer.encode(input_text, return_tensors="pt", max_length=256, truncation=True)
+    input_ids = tokenizer.encode(input_text, return_tensors="pt", max_length=256, truncation=True, pad_to_max_length=True)
     summary_text_ids = model.generate(
         input_ids=input_ids,
         bos_token_id=model.config.bos_token_id,
