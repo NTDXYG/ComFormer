@@ -43,19 +43,18 @@ test_df.columns = ["input_text", "target_text"]
 
 model_args = {
     "overwrite_output_dir": True,
-    "train_batch_size": 1,
+    "train_batch_size": 6,
+    "eval_batch_size": 6,
     "num_train_epochs": 30,
     "max_seq_length":512,
     "save_eval_checkpoints": False,
     "save_model_every_epoch": True,
-    # "silent": True,
     "evaluate_generated_text": True,
     "evaluate_during_training": True,
     "evaluate_during_training_verbose": True,
     "use_multiprocessing": False,
     "use_multiprocessing_for_evaluation":False,
     "save_best_model": True,
-    # "learning_rate":1e-3,
     "top_k":5,
     "top_p":0.95,
     "max_length": 32,
@@ -69,5 +68,5 @@ model_args = {
 
 
 model = BartModel(pretrained_model=None,args=model_args, model_config='config.json', vocab_file="./tokenize")
-#
+
 model.train_model(train_df, eval_data=eval_df, getListRouge=getListRouge)
