@@ -70,3 +70,13 @@ model_args = {
 model = BartModel(pretrained_model=None,args=model_args, model_config='config.json', vocab_file="./tokenize")
 
 model.train_model(train_df, eval_data=eval_df, getListRouge=getListRouge)
+
+model = BartModel(pretrained_model='result/best_model', args=model_args)
+result_list = model.predict(test_df['input_text'].tolist())
+df = pd.DataFrame(result_list)
+df.to_csv("data/predict.csv", index=False, header=None)
+df = pd.DataFrame(test_df['target_text'].tolist())
+df.to_csv("data/true.csv", index=False, header=None)
+from nlgeval import compute_metrics
+
+compute_metrics('data/predict.csv', ['data/true.csv'], no_skipthoughts=True, no_glove=True)
