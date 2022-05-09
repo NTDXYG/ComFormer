@@ -180,3 +180,9 @@ def transformer(code):
     ast = get_ast(processed_code)
     sbt = get_sbt_structure(ast)
     return code_seq, sbt
+
+def transformer_pre(code):
+    code_seq = ' '.join([hump2underline(i) for i in code.split()])
+    ast = get_ast(code)
+    sbt = get_sbt_structure(ast)
+    return code_seq, sbt
