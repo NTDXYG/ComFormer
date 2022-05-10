@@ -1,3 +1,6 @@
+'true.csv', 'comformer_w_ast.csv', and 'hybrid.out.new' are the raw result in the paper.
+'predict.csv' is the new version result in current DeepCom dataset.
+
 This repo uses [javalang](https://github.com/c2nes/javalang), [transformers](https://github.com/huggingface/transformers), [simpletransformers](https://github.com/ThilinaRajapakse/simpletransformers), [pytorch](https://pytorch.org/), and [nlgeval](https://github.com/Maluuba/nlg-eval). If the nlg-eval library installation encounters a dependency conflict, you can modify its project and then run setup.py.
 
 Make sure your dataset is in CSV format and has two columns, code in the first column and comments in the second.
